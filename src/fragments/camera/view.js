@@ -1,8 +1,3 @@
-/**
- * Camera component
- * @flow
- */
-
 import React from 'react'
 import Camera from 'react-native-camera'
 import { defaultStyle } from './defaults'

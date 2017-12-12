@@ -1,21 +1,41 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-    View
-} from 'react-native'
+import { View } from 'react-native'
+import Permissions from 'react-native-permissions'
 
 import { CameraComponent } from '../../fragments'
 import styles from '../../styles'
-import {onBarCodeRead} from './model'
+import { onBarCodeRead } from './model'
 
-export default Home = props =>
-    <View style={styles.container}>
-        <CameraComponent
-            style={styles.camera}
-            onBarCodeRead={onBarCodeRead} />
-    </View>
+export default class Home extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            cameraPermission: undefined
+        }
+    }
+
+    componentDidMount() {
+        Permissions.check('camera').then(response => {
+            this.setState({ cameraPermission: response })
+            if (this.state['cameraPermission'] === 'undetermined') {
+                Permissions.request('photo').then(response => {
+                    // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+                    this.setState({ cameraPermission: response })
+                })
+            }
+        })
+    }
+
+    render() {
+        return <View style={styles.container}>
+
+            {this.state.cameraPermission ? (
+                <CameraComponent
+                    style={styles.camera}
+                    onBarCodeRead={onBarCodeRead} />
+            ) : null}
+
+        </View>
+    }
+
+}
