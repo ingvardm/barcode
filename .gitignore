@@ -1,0 +1,10 @@
+# OSX
+#
+.DS_Store
+
+.code
+.idea
+node_modules
+android
+ios
+gen
