@@ -29,7 +29,7 @@ export default class Home extends Component {
     render() {
         return <View style={styles.container}>
 
-            {this.state.cameraPermission ? (
+            {this.state.cameraPermission === 'authorized' ? (
                 <CameraComponent
                     style={styles.camera}
                     onBarCodeRead={onBarCodeRead} />
