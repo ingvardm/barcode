@@ -37,14 +37,25 @@ const onBarCodeRead = e => {
 }
 
 onComponentDidMount = () => {
-    Permissions.check(cameraPermissionName).then(response => {
-        store.cameraPermissionStatus = response
-        if (response === cameraPermissionTypes.UNDETERMINED) {
-            Permissions.request(cameraPermissionName).then(response => {
-                store.cameraPermissionStatus = response
-            })
-        }
-    })
+    Permissions.check(cameraPermissionName)
+        .then(response => store.cameraPermissionStatus = response)
 }
 
-export { store, onBarCodeRead, onComponentDidMount, cameraPermissionTypes }
+requestPermissions = () => {
+    Permissions.request(cameraPermissionName)
+        .then(response => store.cameraPermissionStatus = response)
+}
+
+canGoToSettings = () => Permissions.canOpenSettings()
+
+goToSettings = () => Permissions.openSettings()
+
+export {
+    store,
+    onBarCodeRead,
+    onComponentDidMount,
+    cameraPermissionTypes,
+    requestPermissions,
+    canGoToSettings,
+    goToSettings
+}

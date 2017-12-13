@@ -1,3 +1,4 @@
-import CameraComponent from './camera'
+import * as CameraPermissionsDialog from './camera-permissions-dialog'
+import Scanner from './scanner'
 
-export { CameraComponent }
+export { Scanner, CameraPermissionsDialog }
