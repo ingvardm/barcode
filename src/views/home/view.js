@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native'
 import { observer } from 'mobx-react'
 
 import { Scanner, CameraPermissionsDialog } from '../../fragments'
@@ -22,7 +23,9 @@ import {
                 return <Scanner onBarCodeRead={onBarCodeRead} />
         
             case cameraPermissionTypes.DENIED:
-                return <CameraPermissionsDialog.DeniedDialog action={goToSettings}/>
+                if (Platform.OS === 'ios')
+                    return <CameraPermissionsDialog.DeniedDialog action={canGoToSettings ? goToSettings : undefined}/>
+                return <CameraPermissionsDialog.UndeterminedDialog action={requestPermissions}/>
 
             case cameraPermissionTypes.RESTRICTED:
                 return <CameraPermissionsDialog.RestrictedDialog/>

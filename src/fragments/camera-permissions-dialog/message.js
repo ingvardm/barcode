@@ -3,7 +3,7 @@ import { View, Text, Button } from 'react-native'
 import styles from '../../styles'
 
 export default Message = props =>
-    <View style={styles.container}>
+    <View style={styles.messageWrapper}>
         <Text>{props.messageText}</Text>
         {props.button ? (
             <Button
