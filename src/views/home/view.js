@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { View } from 'react-native'
-import Permissions from 'react-native-permissions'
 import { observer } from 'mobx-react'
 
 import { Scanner, CameraPermissionsDialog } from '../../fragments'
-import styles from '../../styles'
 import { 
     store,
     onBarCodeRead,
     onComponentDidMount,
     cameraPermissionTypes,
+    requestPermissions,
     goToSettings,
     canGoToSettings
 } from './model'
@@ -24,13 +22,13 @@ import {
                 return <Scanner onBarCodeRead={onBarCodeRead} />
         
             case cameraPermissionTypes.DENIED:
-                return <CameraPermissionsDialog.DeniedDialog/>
+                return <CameraPermissionsDialog.DeniedDialog action={goToSettings}/>
 
             case cameraPermissionTypes.RESTRICTED:
                 return <CameraPermissionsDialog.RestrictedDialog/>
 
             case cameraPermissionTypes.UNDETERMINED:
-                return <CameraPermissionsDialog.UndeterminedDialog/>
+                return <CameraPermissionsDialog.UndeterminedDialog action={requestPermissions}/>
         }
     }
 }

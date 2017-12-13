@@ -6,7 +6,7 @@ export default CameraPermissionsUndeterminedDialog = props =>
         messageText="Please allow camera usage"
         button={{
             text: "Grant permissions",
-            callback: ()=>{},
+            callback: props.action,
             color: "#841584"
         }}
     />
